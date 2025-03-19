@@ -16,7 +16,7 @@ df = pd.read_csv(file_path)
 print("Primeiras 5 linhas:", df.head())
 
 # TRANSFORMANDO EM JSON E SALVANDO NA PASTA DATA_JSON
-file_path_json = "../data_json/Students_Grading_Dataset.csv.json"
+file_path_json = "../data/Students_Grading_Dataset.csv.json"
 df.to_json(file_path_json, orient="records",indent=4)
 print(f"Arquivo JSON salvo em: {file_path_json}")
 

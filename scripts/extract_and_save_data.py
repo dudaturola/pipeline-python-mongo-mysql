@@ -2,7 +2,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import requests
 
-def conect_mongo(uri):
+def connect_mongo(uri):
     # Create a new client and connect to the server
     client = MongoClient(uri, server_api=ServerApi('1'))
 
@@ -48,7 +48,7 @@ def insert_data(col, data):
 
 if __name__ == "__main__":
 
-    client = conect_mongo("mongodb+srv://dudaturola:<SUA SENHA AQUI>@cluster-pipeline.3kxud.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-pipeline")
+    client = connect_mongo("mongodb+srv://dudaturola:<SUA SENHA AQUI>@cluster-pipeline.3kxud.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-pipeline")
     db = create_connect_db(client,"db_produtos_desafio")
     col = create_connect_collection(db, "produtos")
 
