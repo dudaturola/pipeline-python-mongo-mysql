@@ -17,15 +17,15 @@ def rename_column(col, col_name, new_name):
 
 
 def select_category(col, category):
-    query = {"Categoria do Produto": category}
+    query = { "Categoria do Produto": f"{category}"}
     lista_category = []
     for doc in col.find(query):
         lista_category.append(doc)
         
     return lista_category
 
-def make_regex(col, field, regex):
-    query = {field:{"$regex":regex}}
+def make_regex(col, regex):
+    query = {"Data da Compra":{"$regex":f"{regex}"}}
     lista_produtos = []
 
     for doc in col.find(query):
@@ -44,7 +44,8 @@ def format_date(df):
     return df
 
 def save_csv(df, path):
-    df.to_csv(path)
+    df.to_csv(path, index=False)
+    print(f"\nO arquivo {path} foi salvo!")
     return df
 
 
@@ -57,7 +58,7 @@ if __name__ == "__main__":
 
     select_cat_livros = select_category(col,"livros")
 
-    filtro_prod_vend_maior_2021 = make_regex(col,"Data da Compra","/202[1-9]")
+    filtro_prod_vend_maior_2021 = make_regex(col,"/202[1-9]")
 
     df_prod_2021 = create_dataframe(filtro_prod_vend_maior_2021)
    
