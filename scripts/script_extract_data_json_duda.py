@@ -3,6 +3,10 @@ import pandas as pd
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import json
+import os
+from dotenv import load_dotenv
+load_dotenv()
+client = os.getenv("MONGODB_URI")
 
 # Baixar o dataset 
 dataset_path = kagglehub.dataset_download("mahmoudelhemaly/students-grading-dataset")
@@ -55,12 +59,12 @@ def insert_data(col,data):
     return n_docs_inseridos
 
 if __name__ == "__main__":
-    client = conect_mongo("mongodb+srv://dudaturola:<SUA SENHA AQUI>@cluster-pipeline.3kxud.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-pipeline")
-    db = creat_connect_db(client,"Dados_Studients")
+    connect = conect_mongo(client)
+    db = creat_connect_db(connect,"Dados_Studients")
     col = create_connect_collection(db,"Studients")
     data = extract_api_data("../data_json/Students_Grading_Dataset.csv.json")
     print(f"\nQuantidade de dados extraidos: {len(data)}")
     n_docs = insert_data(col,data)
     print(f"\nDocumentos inseridos na colecao: {n_docs}")
 
-client.close()
+conect_mongo.close()

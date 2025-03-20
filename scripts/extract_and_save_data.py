@@ -1,6 +1,10 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
+client = os.getenv("MONGODB_URI")
 
 def connect_mongo(uri):
     # Create a new client and connect to the server
@@ -48,8 +52,8 @@ def insert_data(col, data):
 
 if __name__ == "__main__":
 
-    client = connect_mongo("mongodb+srv://dudaturola:<SUA SENHA AQUI>@cluster-pipeline.3kxud.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-pipeline")
-    db = create_connect_db(client,"db_produtos_desafio")
+    connect = connect_mongo(client)
+    db = create_connect_db(connect,"db_produtos_desafio")
     col = create_connect_collection(db, "produtos")
 
     data = extract_api_data("https://labdados.com/produtos")
@@ -58,5 +62,5 @@ if __name__ == "__main__":
     n_docs = insert_data(col, data)
     print(f"\nDocumentos inseridos na colecao: {n_docs}")
 
-    client.close()
+    connect.close()
 

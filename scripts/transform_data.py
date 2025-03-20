@@ -1,8 +1,10 @@
 from extract_and_save_data import connect_mongo, create_connect_db, create_connect_collection
 import pandas as pd
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-
-client = connect_mongo("mongodb+srv://dudaturola:Dudaduda1997*@cluster-pipeline.3kxud.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-pipeline")
+client = os.getenv("MONGODB_URI")
 db = create_connect_db(client,"db_produtos_desafio")
 col = create_connect_collection(db,"Produtos_desafio")
     
